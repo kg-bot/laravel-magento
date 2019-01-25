@@ -1,0 +1,28 @@
+{
+  "name": "kg-bot/laravel-billy",
+  "description": "Laravel Integration With Billy Billing API",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Stefan Ninic",
+      "email": "ninicstefan94@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "laravel/framework": "^5.5",
+    "guzzlehttp/guzzle": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "KgBot\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "KgBot\\BillyServiceProvider"
+      ]
+    }
+  }
+}
