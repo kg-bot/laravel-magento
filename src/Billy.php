@@ -148,9 +148,9 @@ class Billy
     /**
      * @return \KgBot\Builders\PaymentTermBuilder
      */
-    public function paymentTerms()
+    public function paymentTerms( $organizationId )
     {
-        return new PaymentTermBuilder( $this->request );
+        return new PaymentTermBuilder( $this->request, $organizationId );
     }
 
     /**
