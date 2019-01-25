@@ -17,7 +17,7 @@ class Builder
     protected $entity;
     /** @var Model */
     protected $model;
-    private   $request;
+    protected $request;
 
     public function __construct( Request $request )
     {
@@ -31,26 +31,7 @@ class Builder
      */
     public function get( $filters = [] )
     {
-        $urlFilters = '?limit=1500';
-
-        if ( count( $filters ) > 0 ) {
-
-            $urlFilters .= '&filter=';
-            $i          = 1;
-
-            foreach ( $filters as $filter ) {
-
-                $urlFilters .= $filter[ 0 ] . $this->switchComparison( $filter[ 1 ] ) .
-                               $this->escapeFilter( $filter[ 2 ] ); // todo fix arrays aswell ([1,2,3,...] string)
-
-                if ( count( $filters ) > $i ) {
-
-                    $urlFilters .= '$and:'; // todo allow $or: also
-                }
-
-                $i++;
-            }
-        }
+        $urlFilters = $this->parseFilters( $filters );
 
         return $this->request->handleWithExceptions( function () use ( $urlFilters ) {
 
@@ -73,6 +54,32 @@ class Builder
 
             return $items;
         } );
+    }
+
+    protected function parseFilters( $filters )
+    {
+        $urlFilters = '?limit=1500';
+
+        if ( count( $filters ) > 0 ) {
+
+            $urlFilters .= '&filter=';
+            $i          = 1;
+
+            foreach ( $filters as $filter ) {
+
+                $urlFilters .= $filter[ 0 ] . $this->switchComparison( $filter[ 1 ] ) .
+                               $this->escapeFilter( $filter[ 2 ] ); // todo fix arrays aswell ([1,2,3,...] string)
+
+                if ( count( $filters ) > $i ) {
+
+                    $urlFilters .= '$and:'; // todo allow $or: also
+                }
+
+                $i++;
+            }
+        }
+
+        return $urlFilters;
     }
 
     private function switchComparison( $comparison )
