@@ -36,4 +36,29 @@ class Supplier extends Model
         "payment_terms_id",
         "supplier_group_id",
     ];
+
+    public function contactPersons()
+    {
+        return $this->request->handleWithExceptions( function () {
+
+            $response     = $this->request->client->get( "contactPersons?contactId={$this->{$this->primaryKey}}" );
+            $responseData = json_decode( (string) $response->getBody() );
+            $fetchedItems = collect( $responseData );
+            $items        = collect( [] );
+            $pages        = $responseData->meta->paging->total;
+
+            foreach ( $fetchedItems->{'contactPersons'} as $index => $item ) {
+
+
+                /** @var Model $model */
+                $model = new ContactPerson( $this->request, $item );
+
+                $items->push( $model );
+
+
+            }
+
+            return $items;
+        } );
+    }
 }
