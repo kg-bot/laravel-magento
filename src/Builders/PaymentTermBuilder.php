@@ -39,7 +39,8 @@ class PaymentTermBuilder extends Builder
             $response      = $this->request->client->get( "{$this->entity}{$urlFilters}" );
             $responseData  = json_decode( (string) $response->getBody() );
             $fetchedItems  = collect( $responseData );
-            $payment_terms = new $this->model( $fetchedItems->{str_singular( str_split( $this->entity, '/' )[ 0 ] )} );
+            $payment_terms = new $this->model( $fetchedItems
+                ->values()->{str_singular( str_split( $this->entity, '/' )[ 0 ] )} );
 
             return $payment_terms;
 
