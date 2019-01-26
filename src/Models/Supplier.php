@@ -48,7 +48,7 @@ class Supplier extends Model
             $items        = collect( [] );
             $pages        = $responseData->meta->paging->total;
 
-            foreach ( $fetchedItems->{'contactPersons'} as $index => $item ) {
+            foreach ( $fetchedItems->values()->{'contactPersons'} as $index => $item ) {
 
 
                 /** @var Model $model */
