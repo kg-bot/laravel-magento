@@ -44,11 +44,11 @@ class Supplier extends Model
 
             $response     = $this->request->client->get( "contactPersons?contactId={$this->{$this->primaryKey}}" );
             $responseData = json_decode( (string) $response->getBody() );
-            $fetchedItems = collect( $responseData->{$this->entity} );
+            $fetchedItems = collect( $responseData->contactPersons );
             $items        = collect( [] );
             $pages        = $responseData->meta->paging->total;
 
-            foreach ( $fetchedItems->values()->{'contactPersons'} as $index => $item ) {
+            foreach ( $fetchedItems as $index => $item ) {
 
 
                 /** @var Model $model */
