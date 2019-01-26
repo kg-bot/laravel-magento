@@ -21,7 +21,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "KgBot\\BillyServiceProvider"
+        "KgBot\\Billy\\BillyServiceProvider"
       ]
     }
   }
