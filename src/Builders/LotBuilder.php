@@ -6,10 +6,10 @@
  * Time: 00.01
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\Lot;
+use KgBot\Billy\Models\Lot;
 
 class LotBuilder extends Builder
 {

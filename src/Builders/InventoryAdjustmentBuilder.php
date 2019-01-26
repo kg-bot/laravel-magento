@@ -6,10 +6,10 @@
  * Time: 01.32
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\InventoryAdjustment;
+use KgBot\Billy\Models\InventoryAdjustment;
 
 class InventoryAdjustmentBuilder extends Builder
 {

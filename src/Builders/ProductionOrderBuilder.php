@@ -6,10 +6,10 @@
  * Time: 01.32
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\ProductionOrder;
+use KgBot\Billy\Models\ProductionOrder;
 
 class ProductionOrderBuilder extends Builder
 {

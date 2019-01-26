@@ -6,10 +6,10 @@
  * Time: 15.37
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\Employee;
+use KgBot\Billy\Models\Employee;
 
 class EmployeeBuilder extends Builder
 {

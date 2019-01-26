@@ -6,10 +6,10 @@
  * Time: 15.37
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\Customer;
+use KgBot\Billy\Models\Customer;
 
 class CustomerBuilder extends Builder
 {

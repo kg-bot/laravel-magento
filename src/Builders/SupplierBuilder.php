@@ -6,10 +6,10 @@
  * Time: 15.37
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\Supplier;
+use KgBot\Billy\Models\Supplier;
 
 class SupplierBuilder extends Builder
 {
@@ -19,7 +19,7 @@ class SupplierBuilder extends Builder
     /**
      * @param array $filters
      *
-     * @return \Illuminate\Support\Collection|\KgBot\Utils\Model[]
+     * @return \Illuminate\Support\Collection|\KgBot\Billy\Utils\Model[]
      */
     public function get( $filters = [] )
     {
@@ -37,7 +37,7 @@ class SupplierBuilder extends Builder
 
                 if ( $item->isSupplier ) {
 
-                    /** @var \KgBot\Utils\Model $model */
+                    /** @var \KgBot\Billy\Utils\Model $model */
                     $model = new $this->model( $this->request, $item );
 
                     $items->push( $model );

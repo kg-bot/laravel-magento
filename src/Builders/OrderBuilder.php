@@ -6,10 +6,10 @@
  * Time: 01.32
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\Order;
+use KgBot\Billy\Models\Order;
 
 class OrderBuilder extends Builder
 {

@@ -6,11 +6,11 @@
  * Time: 00.02
  */
 
-namespace KgBot\Models\Variation;
+namespace KgBot\Billy\Models\Variation;
 
 
-use KgBot\Utils\Model;
-use KgBot\Utils\Request;
+use KgBot\Billy\Utils\Model;
+use KgBot\Billy\Utils\Request;
 
 class TypeOption extends Model
 {

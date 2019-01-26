@@ -6,14 +6,14 @@
  * Time: 16.53
  */
 
-namespace KgBot\Utils;
+namespace KgBot\Billy\Utils;
 
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use KgBot\Exceptions\BillyClientException;
-use KgBot\Exceptions\BillyRequestException;
+use KgBot\Billy\Exceptions\BillyClientException;
+use KgBot\Billy\Exceptions\BillyRequestException;
 
 class Request
 {
@@ -50,8 +50,8 @@ class Request
      * @param $callback
      *
      * @return mixed
-     * @throws \KgBot\Exceptions\BillyClientException
-     * @throws \KgBot\Exceptions\BillyRequestException
+     * @throws \KgBot\Billy\Exceptions\BillyClientException
+     * @throws \KgBot\Billy\Exceptions\BillyRequestException
      */
     public function handleWithExceptions( $callback )
     {

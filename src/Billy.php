@@ -6,24 +6,24 @@
  * Time: 15.12
  */
 
-namespace KgBot;
+namespace KgBot\Billy;
 
 
-use KgBot\Builders\CustomerBuilder;
-use KgBot\Builders\CustomerGroupBuilder;
-use KgBot\Builders\EmployeeBuilder;
-use KgBot\Builders\InventoryAdjustmentBuilder;
-use KgBot\Builders\InventoryMovementBuilder;
-use KgBot\Builders\LocationBuilder;
-use KgBot\Builders\LotBuilder;
-use KgBot\Builders\OrderBuilder;
-use KgBot\Builders\PaymentTermBuilder;
-use KgBot\Builders\ProductBuilder;
-use KgBot\Builders\ProductGroupBuilder;
-use KgBot\Builders\ProductionOrderBuilder;
-use KgBot\Builders\SupplierBuilder;
-use KgBot\Builders\Variation\VariationBuilder;
-use KgBot\Utils\Request;
+use KgBot\Billy\Builders\CustomerBuilder;
+use KgBot\Billy\Builders\CustomerGroupBuilder;
+use KgBot\Billy\Builders\EmployeeBuilder;
+use KgBot\Billy\Builders\InventoryAdjustmentBuilder;
+use KgBot\Billy\Builders\InventoryMovementBuilder;
+use KgBot\Billy\Builders\LocationBuilder;
+use KgBot\Billy\Builders\LotBuilder;
+use KgBot\Billy\Builders\OrderBuilder;
+use KgBot\Billy\Builders\PaymentTermBuilder;
+use KgBot\Billy\Builders\ProductBuilder;
+use KgBot\Billy\Builders\ProductGroupBuilder;
+use KgBot\Billy\Builders\ProductionOrderBuilder;
+use KgBot\Billy\Builders\SupplierBuilder;
+use KgBot\Billy\Builders\Variation\VariationBuilder;
+use KgBot\Billy\Utils\Request;
 
 class Billy
 {
@@ -50,7 +50,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\SupplierBuilder
+     * @return \KgBot\Billy\Builders\SupplierBuilder
      */
     public function suppliers()
     {
@@ -58,7 +58,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\LocationBuilder
+     * @return \KgBot\Billy\Builders\LocationBuilder
      */
     public function locations()
     {
@@ -66,7 +66,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\ProductBuilder
+     * @return \KgBot\Billy\Builders\ProductBuilder
      */
     public function products()
     {
@@ -74,7 +74,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\LotBuilder
+     * @return \KgBot\Billy\Builders\LotBuilder
      */
     public function lots()
     {
@@ -82,7 +82,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\ProductGroupBuilder
+     * @return \KgBot\Billy\Builders\ProductGroupBuilder
      */
     public function productGroups()
     {
@@ -90,7 +90,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\Variation\VariationBuilder
+     * @return \KgBot\Billy\Builders\Variation\VariationBuilder
      */
     public function variations()
     {
@@ -98,7 +98,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\OrderBuilder
+     * @return \KgBot\Billy\Builders\OrderBuilder
      */
     public function orders()
     {
@@ -106,7 +106,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\CustomerBuilder
+     * @return \KgBot\Billy\Builders\CustomerBuilder
      */
     public function customers()
     {
@@ -114,7 +114,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\CustomerGroupBuilder
+     * @return \KgBot\Billy\Builders\CustomerGroupBuilder
      */
     public function customerGroups()
     {
@@ -122,7 +122,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\InventoryMovementBuilder
+     * @return \KgBot\Billy\Builders\InventoryMovementBuilder
      */
     public function inventory_movements()
     {
@@ -130,7 +130,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\InventoryAdjustmentBuilder
+     * @return \KgBot\Billy\Builders\InventoryAdjustmentBuilder
      */
     public function inventory_adjustments()
     {
@@ -138,7 +138,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\EmployeeBuilder
+     * @return \KgBot\Billy\Builders\EmployeeBuilder
      */
     public function employees()
     {
@@ -146,7 +146,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\PaymentTermBuilder
+     * @return \KgBot\Billy\Builders\PaymentTermBuilder
      */
     public function paymentTerms( $organizationId )
     {
@@ -154,7 +154,7 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Builders\ProductionOrderBuilder
+     * @return \KgBot\Billy\Builders\ProductionOrderBuilder
      */
     public function production_orders()
     {

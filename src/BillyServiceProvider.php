@@ -6,7 +6,7 @@
  * Time: 01.02
  */
 
-namespace KgBot;
+namespace KgBot\Billy;
 
 
 use Illuminate\Support\ServiceProvider;

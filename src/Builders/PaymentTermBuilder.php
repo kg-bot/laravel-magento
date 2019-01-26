@@ -6,10 +6,10 @@
  * Time: 00.01
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
-use KgBot\Models\PaymentTerm;
-use KgBot\Utils\Request;
+use KgBot\Billy\Models\PaymentTerm;
+use KgBot\Billy\Utils\Request;
 
 class PaymentTermBuilder extends Builder
 {
@@ -28,7 +28,7 @@ class PaymentTermBuilder extends Builder
     /**
      * @param array $filters
      *
-     * @return \Illuminate\Support\Collection|\KgBot\Utils\Model[]
+     * @return \Illuminate\Support\Collection|\KgBot\Billy\Utils\Model[]
      */
     public function get( $filters = [] )
     {

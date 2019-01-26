@@ -6,10 +6,10 @@
  * Time: 17.00
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
-use KgBot\Utils\Model;
-use KgBot\Utils\Request;
+use KgBot\Billy\Utils\Model;
+use KgBot\Billy\Utils\Request;
 
 
 class Builder

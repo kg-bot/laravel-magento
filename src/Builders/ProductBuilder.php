@@ -6,10 +6,10 @@
  * Time: 00.01
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\Product;
+use KgBot\Billy\Models\Product;
 
 class ProductBuilder extends Builder
 {

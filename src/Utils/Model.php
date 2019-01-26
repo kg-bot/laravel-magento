@@ -6,7 +6,7 @@
  * Time: 17.03
  */
 
-namespace KgBot\Utils;
+namespace KgBot\Billy\Utils;
 
 
 class Model

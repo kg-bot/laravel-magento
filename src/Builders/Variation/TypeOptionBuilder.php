@@ -6,10 +6,10 @@
  * Time: 00.01
  */
 
-namespace KgBot\Builders\Variation;
+namespace KgBot\Billy\Builders\Variation;
 
-use KgBot\Builders\Builder;
-use KgBot\Models\Variation\TypeOption;
+use KgBot\Billy\Builders\Builder;
+use KgBot\Billy\Models\Variation\TypeOption;
 
 class TypeOptionBuilder extends Builder
 {

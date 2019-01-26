@@ -6,10 +6,10 @@
  * Time: 01.32
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\InventoryMovement;
+use KgBot\Billy\Models\InventoryMovement;
 
 class InventoryMovementBuilder extends Builder
 {

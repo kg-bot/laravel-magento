@@ -6,10 +6,10 @@
  * Time: 16.48
  */
 
-namespace KgBot\Models;
+namespace KgBot\Billy\Models;
 
 
-use KgBot\Utils\Model;
+use KgBot\Billy\Utils\Model;
 
 class Employee extends Model
 {

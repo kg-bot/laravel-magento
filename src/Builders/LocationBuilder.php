@@ -6,10 +6,10 @@
  * Time: 22.16
  */
 
-namespace KgBot\Builders;
+namespace KgBot\Billy\Builders;
 
 
-use KgBot\Models\Location;
+use KgBot\Billy\Models\Location;
 
 class LocationBuilder extends Builder
 {

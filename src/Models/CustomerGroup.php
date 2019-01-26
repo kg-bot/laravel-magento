@@ -6,10 +6,10 @@
  * Time: 11:54 PM
  */
 
-namespace KgBot\Models;
+namespace KgBot\Billy\Models;
 
 
-use KgBot\Utils\Model;
+use KgBot\Billy\Utils\Model;
 
 class CustomerGroup extends Model
 {

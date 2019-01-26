@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "KgBot\\": "src/"
+      "KgBot\\Billy\\": "src/"
     }
   },
   "extra": {

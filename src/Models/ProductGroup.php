@@ -6,10 +6,10 @@
  * Time: 00.02
  */
 
-namespace KgBot\Models;
+namespace KgBot\Billy\Models;
 
 
-use KgBot\Utils\Model;
+use KgBot\Billy\Utils\Model;
 
 class ProductGroup extends Model
 {

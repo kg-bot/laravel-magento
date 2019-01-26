@@ -6,11 +6,11 @@
  * Time: 00.02
  */
 
-namespace KgBot\Models\Variation;
+namespace KgBot\Billy\Models\Variation;
 
 
-use KgBot\Builders\Variation\TypeBuilder;
-use KgBot\Utils\Model;
+use KgBot\Billy\Builders\Variation\TypeBuilder;
+use KgBot\Billy\Utils\Model;
 
 class Variation extends Model
 {

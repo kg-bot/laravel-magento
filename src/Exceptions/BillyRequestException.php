@@ -6,7 +6,7 @@
  * Time: 16.58
  */
 
-namespace KgBot\Exceptions;
+namespace KgBot\Billy\Exceptions;
 
 
 class BillyRequestException extends \Exception
