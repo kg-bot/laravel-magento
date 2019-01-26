@@ -16,7 +16,7 @@ class Supplier extends Model
     public $number;
     public $company_name;
 
-    protected $entity     = 'suppliers';
+    protected $entity     = 'contacts';
     protected $primaryKey = 'id';
     protected $fillable   = [
 
@@ -44,7 +44,7 @@ class Supplier extends Model
 
             $response     = $this->request->client->get( "contactPersons?contactId={$this->{$this->primaryKey}}" );
             $responseData = json_decode( (string) $response->getBody() );
-            $fetchedItems = collect( $responseData );
+            $fetchedItems = collect( $responseData->{$this->entity} );
             $items        = collect( [] );
             $pages        = $responseData->meta->paging->total;
 
