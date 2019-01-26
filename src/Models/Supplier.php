@@ -37,6 +37,7 @@ class Supplier extends Model
         "supplier_group_id",
     ];
 
+    // @todo Change this method to use Builder also
     public function contactPersons()
     {
         return $this->request->handleWithExceptions( function () {

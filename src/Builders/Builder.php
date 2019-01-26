@@ -37,20 +37,8 @@ class Builder
 
             $response     = $this->request->client->get( "{$this->entity}{$urlFilters}" );
             $responseData = json_decode( (string) $response->getBody() );
-            $fetchedItems = collect( $responseData );
-            $items        = collect( [] );
-            $pages        = $responseData->meta->paging->total;
-
-            foreach ( $fetchedItems->values()->{$this->entity} as $index => $item ) {
-
-
-                /** @var Model $model */
-                $model = new $this->model( $this->request, $item );
-
-                $items->push( $model );
-
-
-            }
+            $items        = $this->parseResponse( $responseData );
+            $pages        = $responseData->meta->paging->total; // @todo implement paging
 
             return $items;
         } );
@@ -80,6 +68,24 @@ class Builder
         }
 
         return $urlFilters;
+    }
+
+    protected function parseResponse( $response )
+    {
+        $fetchedItems = collect( $response->{$this->entity} );
+        $items        = collect( [] );
+
+        foreach ( $fetchedItems as $index => $item ) {
+
+
+            /** @var Model $model */
+            $model = new $this->model( $this->request, $item );
+
+            $items->push( $model );
+
+        }
+
+        return $items;
     }
 
     private function switchComparison( $comparison )

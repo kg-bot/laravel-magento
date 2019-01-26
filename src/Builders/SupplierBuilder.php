@@ -16,37 +16,24 @@ class SupplierBuilder extends Builder
     protected $entity = 'contacts';
     protected $model  = Supplier::class;
 
-    /**
-     * @param array $filters
-     *
-     * @return \Illuminate\Support\Collection|\KgBot\Billy\Utils\Model[]
-     */
-    public function get( $filters = [] )
+
+    protected function parseResponse( $response )
     {
-        $urlFilters = $this->parseFilters( $filters );
+        $fetchedItems = collect( $response->{$this->entity} );
+        $items        = collect( [] );
 
-        return $this->request->handleWithExceptions( function () use ( $urlFilters ) {
+        foreach ( $fetchedItems as $index => $item ) {
 
-            $response     = $this->request->client->get( "{$this->entity}{$urlFilters}" );
-            $responseData = json_decode( (string) $response->getBody() );
-            $fetchedItems = collect( $responseData );
-            $items        = collect( [] );
-            $pages        = $responseData->meta->paging->total;
+            if ( $item->isSupplier ) {
 
-            foreach ( $fetchedItems->values()->{$this->entity} as $index => $item ) {
+                /** @var \KgBot\Billy\Utils\Model $model */
+                $model = new $this->model( $this->request, $item );
 
-                if ( $item->isSupplier ) {
-
-                    /** @var \KgBot\Billy\Utils\Model $model */
-                    $model = new $this->model( $this->request, $item );
-
-                    $items->push( $model );
-                }
-
-
+                $items->push( $model );
             }
 
-            return $items;
-        } );
+        }
+
+        return $items;
     }
 }

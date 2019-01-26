@@ -25,25 +25,12 @@ class PaymentTermBuilder extends Builder
         $this->entity = sprintf( $this->entity, $organizationId );
     }
 
-    /**
-     * @param array $filters
-     *
-     * @return \Illuminate\Support\Collection|\KgBot\Billy\Utils\Model[]
-     */
-    public function get( $filters = [] )
+    protected function parseResponse( $response )
     {
-        $urlFilters = $this->parseFilters( $filters );
+        $fetchedItems  = collect( $response );
+        $payment_terms = new $this->model( $fetchedItems
+            ->values()->{str_singular( str_split( $this->entity, '/' )[ 0 ] )} );
 
-        return $this->request->handleWithExceptions( function () use ( $urlFilters ) {
-
-            $response      = $this->request->client->get( "{$this->entity}{$urlFilters}" );
-            $responseData  = json_decode( (string) $response->getBody() );
-            $fetchedItems  = collect( $responseData );
-            $payment_terms = new $this->model( $fetchedItems
-                ->values()->{str_singular( str_split( $this->entity, '/' )[ 0 ] )} );
-
-            return $payment_terms;
-
-        } );
+        return $payment_terms;
     }
 }
