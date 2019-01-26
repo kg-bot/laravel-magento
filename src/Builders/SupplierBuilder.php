@@ -31,9 +31,9 @@ class SupplierBuilder extends Builder
             $responseData = json_decode( (string) $response->getBody() );
             $fetchedItems = collect( $responseData );
             $items        = collect( [] );
-            $pages        = $responseData->meta->paging->total;
+            $pages        = $responseData->values()->meta->paging->total;
 
-            foreach ( $fetchedItems->{$this->entity} as $index => $item ) {
+            foreach ( $fetchedItems->values()->{$this->entity} as $index => $item ) {
 
                 if ( $item->isSupplier ) {
 

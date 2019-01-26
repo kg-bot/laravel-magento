@@ -39,9 +39,9 @@ class Builder
             $responseData = json_decode( (string) $response->getBody() );
             $fetchedItems = collect( $responseData );
             $items        = collect( [] );
-            $pages        = $responseData->meta->paging->total;
+            $pages        = $responseData->values()->meta->paging->total;
 
-            foreach ( $fetchedItems->{$this->entity} as $index => $item ) {
+            foreach ( $fetchedItems->values()->{$this->entity} as $index => $item ) {
 
 
                 /** @var Model $model */
@@ -155,7 +155,7 @@ class Builder
             $response     = $this->request->client->get( "{$this->entity}/{$id}" );
             $responseData = collect( json_decode( (string) $response->getBody() ) );
 
-            return new $this->model( $this->request, $responseData->{str_singular( $this->entity )} );
+            return new $this->model( $this->request, $responseData->values()->{str_singular( $this->entity )} );
         } );
     }
 
@@ -169,7 +169,7 @@ class Builder
 
             $responseData = collect( json_decode( (string) $response->getBody() ) );
 
-            return new $this->model( $this->request, $responseData->{str_singular( $this->entity )} );
+            return new $this->model( $this->request, $responseData->values()->{str_singular( $this->entity )} );
         } );
     }
 

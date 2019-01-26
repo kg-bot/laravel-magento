@@ -45,7 +45,7 @@ class Supplier extends Model
             $responseData = json_decode( (string) $response->getBody() );
             $fetchedItems = collect( $responseData );
             $items        = collect( [] );
-            $pages        = $responseData->meta->paging->total;
+            $pages        = $responseData->values()->meta->paging->total;
 
             foreach ( $fetchedItems->{'contactPersons'} as $index => $item ) {
 
