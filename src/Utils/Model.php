@@ -76,7 +76,9 @@ class Model
 
     public function update( $data = [] )
     {
-        $data = array_merge( $this->toArray(), $data );
+        $data = [
+            str_singular( $this->entity ) => $data,
+        ];
 
         return $this->request->handleWithExceptions( function () use ( $data ) {
 
@@ -86,7 +88,7 @@ class Model
 
             $responseData = json_decode( (string) $response->getBody() );
 
-            return new $this->modelClass( $this->request, $responseData->{str_singular( $this->entity )} );
+            return new $this->modelClass( $this->request, $responseData->{$this->entity}[ 0 ] );
         } );
     }
 

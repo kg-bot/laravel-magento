@@ -38,7 +38,9 @@ class Builder
             $response     = $this->request->client->get( "{$this->entity}{$urlFilters}" );
             $responseData = json_decode( (string) $response->getBody() );
             $items        = $this->parseResponse( $responseData );
-            $pages        = $responseData->meta->paging->total; // @todo implement paging
+            $pages        = ( isset( $responseData->meta->paging ) ) ? $responseData->meta->paging->total : null;
+
+            // todo implement paging
 
             return $items;
         } );
@@ -50,17 +52,17 @@ class Builder
 
         if ( count( $filters ) > 0 ) {
 
-            $urlFilters .= '&filter=';
+            $urlFilters .= '&';
             $i          = 1;
 
             foreach ( $filters as $filter ) {
 
-                $urlFilters .= $filter[ 0 ] . $this->switchComparison( $filter[ 1 ] ) .
+                $urlFilters .= $filter[ 0 ] . $filter[ 1 ] .
                                $this->escapeFilter( $filter[ 2 ] ); // todo fix arrays aswell ([1,2,3,...] string)
 
                 if ( count( $filters ) > $i ) {
 
-                    $urlFilters .= '$and:'; // todo allow $or: also
+                    $urlFilters .= '&'; // todo allow $or: also
                 }
 
                 $i++;
@@ -86,45 +88,6 @@ class Builder
         }
 
         return $items;
-    }
-
-    private function switchComparison( $comparison )
-    {
-        switch ( $comparison ) {
-            case '=':
-            case '==':
-                $newComparison = '$eq:';
-                break;
-            case '!=':
-                $newComparison = '$ne:';
-                break;
-            case '>':
-                $newComparison = '$gt:';
-                break;
-            case '>=':
-                $newComparison = '$gte:';
-                break;
-            case '<':
-                $newComparison = '$lt:';
-                break;
-            case '<=':
-                $newComparison = '$lte:';
-                break;
-            case 'like':
-                $newComparison = '$like:';
-                break;
-            case 'in':
-                $newComparison = '$in:';
-                break;
-            case '!in':
-                $newComparison = '$nin:';
-                break;
-            default:
-                $newComparison = "${$comparison}:";
-                break;
-        }
-
-        return $newComparison;
     }
 
     private function escapeFilter( $variable )
@@ -189,5 +152,44 @@ class Builder
         $this->entity = $new_entity;
 
         return $this->entity;
+    }
+
+    private function switchComparison( $comparison )
+    {
+        switch ( $comparison ) {
+            case '=':
+            case '==':
+                $newComparison = '$eq:';
+                break;
+            case '!=':
+                $newComparison = '$ne:';
+                break;
+            case '>':
+                $newComparison = '$gt:';
+                break;
+            case '>=':
+                $newComparison = '$gte:';
+                break;
+            case '<':
+                $newComparison = '$lt:';
+                break;
+            case '<=':
+                $newComparison = '$lte:';
+                break;
+            case 'like':
+                $newComparison = '$like:';
+                break;
+            case 'in':
+                $newComparison = '$in:';
+                break;
+            case '!in':
+                $newComparison = '$nin:';
+                break;
+            default:
+                $newComparison = "${$comparison}:";
+                break;
+        }
+
+        return $newComparison;
     }
 }

@@ -2,6 +2,7 @@
   "name": "kg-bot/laravel-billy",
   "description": "Laravel Integration With Billy Billing API",
   "license": "MIT",
+  "type": "library",
   "authors": [
     {
       "name": "Stefan Ninic",

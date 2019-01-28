@@ -9,12 +9,11 @@
 namespace KgBot\Billy\Models;
 
 
+use KgBot\Billy\Builders\ContactPersonBuilder;
 use KgBot\Billy\Utils\Model;
 
 class Supplier extends Model
 {
-    public $number;
-    public $company_name;
 
     protected $entity     = 'contacts';
     protected $primaryKey = 'id';
@@ -37,29 +36,11 @@ class Supplier extends Model
         "supplier_group_id",
     ];
 
-    // @todo Change this method to use Builder also
     public function contactPersons()
     {
-        return $this->request->handleWithExceptions( function () {
 
-            $response     = $this->request->client->get( "contactPersons?contactId={$this->{$this->primaryKey}}" );
-            $responseData = json_decode( (string) $response->getBody() );
-            $fetchedItems = collect( $responseData->contactPersons );
-            $items        = collect( [] );
-            $pages        = $responseData->meta->paging->total;
-
-            foreach ( $fetchedItems as $index => $item ) {
-
-
-                /** @var Model $model */
-                $model = new ContactPerson( $this->request, $item );
-
-                $items->push( $model );
-
-
-            }
-
-            return $items;
-        } );
+        return ( new ContactPersonBuilder( $this->request ) )->get( [
+            [ 'contactId', '=', $this->{$this->primaryKey} ],
+        ] );
     }
 }

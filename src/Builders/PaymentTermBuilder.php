@@ -27,9 +27,8 @@ class PaymentTermBuilder extends Builder
 
     protected function parseResponse( $response )
     {
-        $fetchedItems  = collect( $response );
-        $payment_terms = new $this->model( $fetchedItems
-            ->values()->{str_singular( str_split( $this->entity, '/' )[ 0 ] )} );
+        $payment_terms = new $this->model( $this->request,
+            $response->{str_singular( explode( '/', $this->entity )[ 0 ] )} );
 
         return $payment_terms;
     }
