@@ -11,8 +11,8 @@ namespace KgBot\Billy\Models;
 
 use KgBot\Billy\Utils\Model;
 
-class InventoryMovement extends Model
+class Currency extends Model
 {
-    protected $entity     = 'inventory-movements';
+    protected $entity     = 'currencies';
     protected $primaryKey = 'id';
 }

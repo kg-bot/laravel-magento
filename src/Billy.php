@@ -9,11 +9,14 @@
 namespace KgBot\Billy;
 
 
+use KgBot\Billy\Builders\CountryBuilder;
+use KgBot\Billy\Builders\CurrencyBuilder;
 use KgBot\Billy\Builders\CustomerBuilder;
 use KgBot\Billy\Builders\CustomerGroupBuilder;
 use KgBot\Billy\Builders\EmployeeBuilder;
 use KgBot\Billy\Builders\InventoryAdjustmentBuilder;
 use KgBot\Billy\Builders\InventoryMovementBuilder;
+use KgBot\Billy\Builders\InvoiceBuilder;
 use KgBot\Billy\Builders\LocationBuilder;
 use KgBot\Billy\Builders\LotBuilder;
 use KgBot\Billy\Builders\OrderBuilder;
@@ -58,51 +61,11 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Billy\Builders\LocationBuilder
-     */
-    public function locations()
-    {
-        return new LocationBuilder( $this->request );
-    }
-
-    /**
      * @return \KgBot\Billy\Builders\ProductBuilder
      */
     public function products()
     {
         return new ProductBuilder( $this->request );
-    }
-
-    /**
-     * @return \KgBot\Billy\Builders\LotBuilder
-     */
-    public function lots()
-    {
-        return new LotBuilder( $this->request );
-    }
-
-    /**
-     * @return \KgBot\Billy\Builders\ProductGroupBuilder
-     */
-    public function productGroups()
-    {
-        return new ProductGroupBuilder( $this->request );
-    }
-
-    /**
-     * @return \KgBot\Billy\Builders\Variation\VariationBuilder
-     */
-    public function variations()
-    {
-        return new VariationBuilder( $this->request );
-    }
-
-    /**
-     * @return \KgBot\Billy\Builders\OrderBuilder
-     */
-    public function orders()
-    {
-        return new OrderBuilder( $this->request );
     }
 
     /**
@@ -114,38 +77,6 @@ class Billy
     }
 
     /**
-     * @return \KgBot\Billy\Builders\CustomerGroupBuilder
-     */
-    public function customerGroups()
-    {
-        return new CustomerGroupBuilder( $this->request );
-    }
-
-    /**
-     * @return \KgBot\Billy\Builders\InventoryMovementBuilder
-     */
-    public function inventory_movements()
-    {
-        return new InventoryMovementBuilder( $this->request );
-    }
-
-    /**
-     * @return \KgBot\Billy\Builders\InventoryAdjustmentBuilder
-     */
-    public function inventory_adjustments()
-    {
-        return new InventoryAdjustmentBuilder( $this->request );
-    }
-
-    /**
-     * @return \KgBot\Billy\Builders\EmployeeBuilder
-     */
-    public function employees()
-    {
-        return new EmployeeBuilder( $this->request );
-    }
-
-    /**
      * @return \KgBot\Billy\Builders\PaymentTermBuilder
      */
     public function paymentTerms( $organizationId )
@@ -153,11 +84,19 @@ class Billy
         return new PaymentTermBuilder( $this->request, $organizationId );
     }
 
-    /**
-     * @return \KgBot\Billy\Builders\ProductionOrderBuilder
-     */
-    public function production_orders()
+
+    public function countries()
     {
-        return new ProductionOrderBuilder( $this->request );
+        return new CountryBuilder( $this->request );
+    }
+
+    public function currencies()
+    {
+        return new CurrencyBuilder( $this->request );
+    }
+
+    public function invoices()
+    {
+        return new InvoiceBuilder( $this->request );
     }
 }

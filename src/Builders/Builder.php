@@ -130,15 +130,19 @@ class Builder
 
     public function create( $data )
     {
+        $data = [
+            str_singular( $this->entity ) => $data,
+        ];
+
         return $this->request->handleWithExceptions( function () use ( $data ) {
 
             $response = $this->request->client->post( "{$this->entity}", [
                 'json' => $data,
             ] );
 
-            $responseData = collect( json_decode( (string) $response->getBody() ) );
+            $responseData = json_decode( (string) $response->getBody() );
 
-            return new $this->model( $this->request, $responseData->values()->{str_singular( $this->entity )} );
+            return new $this->model( $this->request, $responseData->{$this->entity}[ 0 ] );
         } );
     }
 

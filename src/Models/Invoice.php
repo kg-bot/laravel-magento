@@ -11,8 +11,8 @@ namespace KgBot\Billy\Models;
 
 use KgBot\Billy\Utils\Model;
 
-class InventoryAdjustment extends Model
+class Invoice extends Model
 {
-    protected $entity     = 'inventory-adjustments';
+    protected $entity     = 'invoices';
     protected $primaryKey = 'id';
 }
