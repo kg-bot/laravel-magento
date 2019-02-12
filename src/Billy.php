@@ -9,6 +9,7 @@
 namespace KgBot\Billy;
 
 
+use KgBot\Billy\Builders\AccountBuilder;
 use KgBot\Billy\Builders\CountryBuilder;
 use KgBot\Billy\Builders\CurrencyBuilder;
 use KgBot\Billy\Builders\CustomerBuilder;
@@ -17,6 +18,7 @@ use KgBot\Billy\Builders\EmployeeBuilder;
 use KgBot\Billy\Builders\InventoryAdjustmentBuilder;
 use KgBot\Billy\Builders\InventoryMovementBuilder;
 use KgBot\Billy\Builders\InvoiceBuilder;
+use KgBot\Billy\Builders\JournalBuilder;
 use KgBot\Billy\Builders\LocationBuilder;
 use KgBot\Billy\Builders\LotBuilder;
 use KgBot\Billy\Builders\OrderBuilder;
@@ -47,6 +49,11 @@ class Billy
         $this->initRequest( $token, $options, $headers );
     }
 
+    /**
+     * @param       $token
+     * @param array $options
+     * @param array $headers
+     */
     private function initRequest( $token, $options = [], $headers = [] )
     {
         $this->request = new Request( $token, $options, $headers );
@@ -84,19 +91,43 @@ class Billy
         return new PaymentTermBuilder( $this->request, $organizationId );
     }
 
-
+    /**
+     * @return \KgBot\Billy\Builders\CountryBuilder
+     */
     public function countries()
     {
         return new CountryBuilder( $this->request );
     }
 
+    /**
+     * @return \KgBot\Billy\Builders\CurrencyBuilder
+     */
     public function currencies()
     {
         return new CurrencyBuilder( $this->request );
     }
 
+    /**
+     * @return \KgBot\Billy\Builders\InvoiceBuilder
+     */
     public function invoices()
     {
         return new InvoiceBuilder( $this->request );
+    }
+
+    /**
+     * @return \KgBot\Billy\Builders\AccountBuilder
+     */
+    public function accounts()
+    {
+        return new AccountBuilder( $this->request );
+    }
+
+    /**
+     * @return \KgBot\Billy\Builders\JournalBuilder
+     */
+    public function journals()
+    {
+        return new JournalBuilder( $this->request );
     }
 }
