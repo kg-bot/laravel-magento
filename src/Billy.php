@@ -10,6 +10,7 @@ namespace KgBot\Billy;
 
 
 use KgBot\Billy\Builders\AccountBuilder;
+use KgBot\Billy\Builders\BillBuilder;
 use KgBot\Billy\Builders\CountryBuilder;
 use KgBot\Billy\Builders\CurrencyBuilder;
 use KgBot\Billy\Builders\CustomerBuilder;
@@ -129,5 +130,13 @@ class Billy
     public function journals()
     {
         return new JournalBuilder( $this->request );
+    }
+
+    /**
+     * @return \KgBot\Billy\Builders\BillBuilder
+     */
+    public function bills()
+    {
+        return new BillBuilder( $this->request );
     }
 }
