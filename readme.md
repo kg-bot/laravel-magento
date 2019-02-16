@@ -22,7 +22,7 @@ In Laravel 5.5, and above, the package will auto-register the service provider. 
 <?php 
 'providers' => [
     // ...
-    \KgBot\Billy\BillyServiceProvider::class,
+    \KgBot\Magento\BillyServiceProvider::class,
     // ...
 ]
 ```
@@ -30,5 +30,5 @@ In Laravel 5.5, and above, the package will auto-register the service provider. 
 3. Copy the package config to your local config with the publish command: 
 
 ``` bash
-php artisan vendor:publish --provider="KgBot\Billy\BillyServiceProvider"
+php artisan vendor:publish --provider="KgBot\Magento\BillyServiceProvider"
 ```

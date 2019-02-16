@@ -6,10 +6,10 @@
  * Time: 17.00
  */
 
-namespace KgBot\Billy\Builders;
+namespace KgBot\Magento\Builders;
 
-use KgBot\Billy\Utils\Model;
-use KgBot\Billy\Utils\Request;
+use KgBot\Magento\Utils\Model;
+use KgBot\Magento\Utils\Request;
 
 
 class Builder
@@ -38,9 +38,6 @@ class Builder
             $response     = $this->request->client->get( "{$this->entity}{$urlFilters}" );
             $responseData = json_decode( (string) $response->getBody() );
             $items        = $this->parseResponse( $responseData );
-            $pages        = ( isset( $responseData->meta->paging ) ) ? $responseData->meta->paging->total : null;
-
-            // todo implement paging
 
             return $items;
         } );
@@ -48,22 +45,18 @@ class Builder
 
     protected function parseFilters( $filters )
     {
-        $urlFilters = '?limit=1500';
-
+        $urlFilters = '?searchCriteria';
         if ( count( $filters ) > 0 ) {
 
-            $urlFilters .= '&';
-            $i          = 1;
+            $i = 0;
 
             foreach ( $filters as $filter ) {
 
-                $urlFilters .= $filter[ 0 ] . $filter[ 1 ] .
-                               $this->escapeFilter( $filter[ 2 ] ); // todo fix arrays aswell ([1,2,3,...] string)
-
-                if ( count( $filters ) > $i ) {
-
-                    $urlFilters .= '&'; // todo allow $or: also
-                }
+                $urlFilters .= '[filter_groups][0][filters][0][field]=' . $filter[ 'field' ];
+                $urlFilters .= '&searchCriteria';
+                $urlFilters .= '[filter_groups][0][filters][0][value]=' . $filter[ 'value' ];
+                $urlFilters .= '&searchCriteria';
+                $urlFilters .= '[filter_groups][0][filters][0][condition_type]=' . $filter[ 'condition_type' ];
 
                 $i++;
             }
@@ -74,7 +67,7 @@ class Builder
 
     protected function parseResponse( $response )
     {
-        $fetchedItems = collect( $response->{$this->entity} );
+        $fetchedItems = collect( $response->items );
         $items        = collect( [] );
 
         foreach ( $fetchedItems as $index => $item ) {
@@ -90,41 +83,14 @@ class Builder
         return $items;
     }
 
-    private function escapeFilter( $variable )
-    {
-        $escapedStrings    = [
-            "$",
-            '(',
-            ')',
-            '*',
-            '[',
-            ']',
-            ',',
-        ];
-        $urlencodedStrings = [
-            '+',
-            ' ',
-        ];
-        foreach ( $escapedStrings as $escapedString ) {
-
-            $variable = str_replace( $escapedString, '$' . $escapedString, $variable );
-        }
-        foreach ( $urlencodedStrings as $urlencodedString ) {
-
-            $variable = str_replace( $urlencodedString, urlencode( $urlencodedString ), $variable );
-        }
-
-        return $variable;
-    }
-
     public function find( $id )
     {
         return $this->request->handleWithExceptions( function () use ( $id ) {
 
             $response     = $this->request->client->get( "{$this->entity}/{$id}" );
-            $responseData = collect( json_decode( (string) $response->getBody() ) );
+            $responseData = json_decode( (string) $response->getBody() );
 
-            return new $this->model( $this->request, $responseData->values()->{str_singular( $this->entity )} );
+            return new $this->model( $this->request, $responseData );
         } );
     }
 
@@ -156,6 +122,33 @@ class Builder
         $this->entity = $new_entity;
 
         return $this->entity;
+    }
+
+    private function escapeFilter( $variable )
+    {
+        $escapedStrings    = [
+            "$",
+            '(',
+            ')',
+            '*',
+            '[',
+            ']',
+            ',',
+        ];
+        $urlencodedStrings = [
+            '+',
+            ' ',
+        ];
+        foreach ( $escapedStrings as $escapedString ) {
+
+            $variable = str_replace( $escapedString, '$' . $escapedString, $variable );
+        }
+        foreach ( $urlencodedStrings as $urlencodedString ) {
+
+            $variable = str_replace( $urlencodedString, urlencode( $urlencodedString ), $variable );
+        }
+
+        return $variable;
     }
 
     private function switchComparison( $comparison )

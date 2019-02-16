@@ -11,8 +11,8 @@ namespace KgBot\Magento\Models;
 
 use KgBot\Magento\Utils\Model;
 
-class Product extends Model
+class Order extends Model
 {
-    protected $entity     = 'products';
-    protected $primaryKey = 'id';
+    protected $entity     = 'orders';
+    protected $primaryKey = 'entity_id';
 }

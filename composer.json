@@ -1,6 +1,6 @@
 {
-  "name": "kg-bot/laravel-billy",
-  "description": "Laravel Integration With Billy Billing API",
+  "name": "kg-bot/laravel-magento",
+  "description": "Laravel Integration With Magento API",
   "license": "MIT",
   "type": "library",
   "authors": [
@@ -12,17 +12,18 @@
   "require": {
     "php": ">=7.1",
     "laravel/framework": "^5.5",
+    "ext-json": "*",
     "guzzlehttp/guzzle": "*"
   },
   "autoload": {
     "psr-4": {
-      "KgBot\\Billy\\": "src/"
+      "KgBot\\Magento\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "KgBot\\Billy\\BillyServiceProvider"
+        "KgBot\\Magento\\MagentoServiceProvider"
       ]
     }
   }

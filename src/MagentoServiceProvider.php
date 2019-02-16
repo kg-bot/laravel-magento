@@ -6,31 +6,29 @@
  * Time: 01.02
  */
 
-namespace KgBot\Billy;
+namespace KgBot\Magento;
 
 
 use Illuminate\Support\ServiceProvider;
 
-class BillyServiceProvider extends ServiceProvider
+class MagentoServiceProvider extends ServiceProvider
 {
     /**
      * Boot.
      */
     public function boot()
     {
-        $configPath = __DIR__ . '/config/billy.php';
+        $configPath = __DIR__ . '/config/laravel-magento.php';
 
-        $this->mergeConfigFrom( $configPath, 'billy' );
-
-        $configPath = __DIR__ . '/config/billy.php';
+        $this->mergeConfigFrom( $configPath, 'laravel-magento' );
 
         if ( function_exists( 'config_path' ) ) {
 
-            $publishPath = config_path( 'billy.php' );
+            $publishPath = config_path( 'laravel-magento.php' );
 
         } else {
 
-            $publishPath = base_path( 'config/billy.php' );
+            $publishPath = base_path( 'config/laravel-magento.php' );
 
         }
 

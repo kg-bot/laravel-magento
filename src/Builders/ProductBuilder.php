@@ -2,18 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: nts
- * Date: 1.4.18.
- * Time: 00.01
+ * Date: 19.4.18.
+ * Time: 01.32
  */
 
-namespace KgBot\Billy\Builders;
+namespace KgBot\Magento\Builders;
 
 
-use KgBot\Billy\Models\Product;
+use KgBot\Magento\Models\Product;
 
 class ProductBuilder extends Builder
 {
-
     protected $entity = 'products';
     protected $model  = Product::class;
 }

@@ -6,10 +6,10 @@
  * Time: 16.59
  */
 
-namespace KgBot\Billy\Exceptions;
+namespace KgBot\Magento\Exceptions;
 
 
-class BillyClientException extends \Exception
+class MagentoClientException extends \Exception
 {
 
 }

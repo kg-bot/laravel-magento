@@ -2,38 +2,31 @@
 /**
  * Created by PhpStorm.
  * User: nts
- * Date: 31.3.18.
- * Time: 15.37
+ * Date: 19.4.18.
+ * Time: 01.32
  */
 
-namespace KgBot\Billy\Builders;
+namespace KgBot\Magento\Builders;
 
 
-use KgBot\Billy\Models\Customer;
+use KgBot\Magento\Models\Customer;
 
 class CustomerBuilder extends Builder
 {
-    protected $entity = 'contacts';
+    protected $entity = 'customers';
     protected $model  = Customer::class;
 
-
-    protected function parseResponse( $response )
+    public function get( $filters = [] )
     {
-        $fetchedItems = collect( $response->{$this->entity} );
-        $items        = collect( [] );
+        $urlFilters = $this->parseFilters( $filters );
 
-        foreach ( $fetchedItems as $index => $item ) {
+        return $this->request->handleWithExceptions( function () use ( $urlFilters ) {
 
-            if ( $item->isCustomer ) {
+            $response     = $this->request->client->get( "{$this->entity}/search{$urlFilters}" );
+            $responseData = json_decode( (string) $response->getBody() );
+            $items        = $this->parseResponse( $responseData );
 
-                /** @var \KgBot\Billy\Utils\Model $model */
-                $model = new $this->model( $this->request, $item );
-
-                $items->push( $model );
-            }
-
-        }
-
-        return $items;
+            return $items;
+        } );
     }
 }

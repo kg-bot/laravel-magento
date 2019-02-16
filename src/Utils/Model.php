@@ -6,7 +6,7 @@
  * Time: 17.03
  */
 
-namespace KgBot\Billy\Utils;
+namespace KgBot\Magento\Utils;
 
 
 class Model

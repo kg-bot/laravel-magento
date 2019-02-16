@@ -6,14 +6,14 @@
  * Time: 16.53
  */
 
-namespace KgBot\Billy\Utils;
+namespace KgBot\Magento\Utils;
 
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use KgBot\Billy\Exceptions\BillyClientException;
-use KgBot\Billy\Exceptions\BillyRequestException;
+use KgBot\Magento\Exceptions\MagentoClientException;
+use KgBot\Magento\Exceptions\MagentoRequestException;
 
 class Request
 {
@@ -31,18 +31,19 @@ class Request
      */
     public function __construct( $token = null, $options = [], $headers = [] )
     {
-        $token        = $token ?? config( 'billy.token' );
-        $headers      = array_merge( $headers, [
+        $token   = $token ?? config( 'laravel-magento.token' );
+        $headers = array_merge( [
 
-            'Accept'         => 'application/json',
-            'Content-Type'   => 'application/json',
-            'X-Access-Token' => $token,
-        ] );
-        $options      = array_merge( $options, [
+            'Accept'        => 'application/json',
+            'Content-Type'  => 'application/json',
+            'Authorization' => 'Bearer ' . $token,
+        ], $headers );
+        $options = array_merge( [
 
-            'base_uri' => config( 'billy.base_uri' ),
+            'base_uri' => config( 'laravel-magento.base_uri' ),
             'headers'  => $headers,
-        ] );
+        ], $options );
+
         $this->client = new Client( $options );
     }
 
@@ -50,8 +51,8 @@ class Request
      * @param $callback
      *
      * @return mixed
-     * @throws \KgBot\Billy\Exceptions\BillyClientException
-     * @throws \KgBot\Billy\Exceptions\BillyRequestException
+     * @throws \KgBot\Magento\Exceptions\MagentoClientException
+     * @throws \KgBot\Magento\Exceptions\MagentoRequestException
      */
     public function handleWithExceptions( $callback )
     {
@@ -69,7 +70,7 @@ class Request
                 $code    = $exception->getResponse()->getStatusCode();
             }
 
-            throw new BillyRequestException( $message, $code );
+            throw new MagentoRequestException( $message, $code );
 
         } catch ( ServerException $exception ) {
 
@@ -82,14 +83,14 @@ class Request
                 $code    = $exception->getResponse()->getStatusCode();
             }
 
-            throw new BillyRequestException( $message, $code );
+            throw new MagentoRequestException( $message, $code );
 
         } catch ( \Exception $exception ) {
 
             $message = $exception->getMessage();
             $code    = $exception->getCode();
 
-            throw new BillyClientException( $message, $code );
+            throw new MagentoClientException( $message, $code );
         }
     }
 }
