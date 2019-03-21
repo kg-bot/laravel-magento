@@ -70,7 +70,7 @@ class Model
     {
         return $this->request->handleWithExceptions( function () {
 
-            return $this->request->client->delete( "{$this->entity}/{$this->{$this->primaryKey}}" );
+            return $this->request->client->delete( "{$this->entity}/" . urlencode( $this->{$this->primaryKey} ) );
         } );
     }
 
@@ -82,7 +82,7 @@ class Model
 
         return $this->request->handleWithExceptions( function () use ( $data ) {
 
-            $response = $this->request->client->put( "{$this->entity}/{$this->{$this->primaryKey}}", [
+            $response = $this->request->client->put( "{$this->entity}/" . urlencode( $this->{$this->primaryKey} ), [
                 'json' => $data,
             ] );
 
