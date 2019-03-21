@@ -88,7 +88,7 @@ class Model
 
             $responseData = json_decode( (string) $response->getBody() );
 
-            return new $this->modelClass( $this->request, $responseData->{$this->entity}[ 0 ] );
+            return new $this->modelClass( $this->request, $responseData->{str_singular( $this->entity )} );
         } );
     }
 
