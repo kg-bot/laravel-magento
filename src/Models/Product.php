@@ -14,5 +14,5 @@ use KgBot\Magento\Utils\Model;
 class Product extends Model
 {
     protected $entity     = 'products';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'sku';
 }
