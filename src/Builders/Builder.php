@@ -108,7 +108,7 @@ class Builder
 
             $responseData = json_decode( (string) $response->getBody() );
 
-            return new $this->model( $this->request, $responseData->{$this->entity}[ 0 ] );
+            return new $this->model( $this->request, $responseData );
         } );
     }
 
