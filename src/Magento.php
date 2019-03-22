@@ -9,6 +9,7 @@
 namespace KgBot\Magento;
 
 use KgBot\Magento\Builders\CustomerBuilder;
+use KgBot\Magento\Builders\CustomerGroupBuilder;
 use KgBot\Magento\Builders\OrderBuilder;
 use KgBot\Magento\Builders\ProductBuilder;
 use KgBot\Magento\Utils\Request;
@@ -64,5 +65,14 @@ class Magento
     public function products()
     {
         return new ProductBuilder( $this->request );
+    }
+
+    /**
+     * @return \KgBot\Magento\Builders\CustomerGroupBuilder
+     */
+    public function customer_groups()
+    {
+
+        return new CustomerGroupBuilder( $this->request );
     }
 }
