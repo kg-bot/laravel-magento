@@ -49,17 +49,18 @@ class Builder
 
     protected function parseFilters( $filters )
     {
-        $urlFilters = '';
-        if ( count( $filters ) > 0 ) {
-            $urlFilters = '?searchCriteria';
-            foreach ($filters as $filter ) {
+        $urlFilters = '?searchCriteria';
+        if (count($filters) > 0) {
+            foreach ($filters as $filter) {
 
-                $urlFilters .= '[filter_groups][0][filters][0][field]=' . $filter[ 'field' ];
+                $urlFilters .= '[filter_groups][0][filters][0][field]=' . $filter['field'];
                 $urlFilters .= '&searchCriteria';
-                $urlFilters .= '[filter_groups][0][filters][0][value]=' . $filter[ 'value' ];
+                $urlFilters .= '[filter_groups][0][filters][0][value]=' . $filter['value'];
                 $urlFilters .= '&searchCriteria';
-                $urlFilters .= '[filter_groups][0][filters][0][condition_type]=' . $filter[ 'condition_type' ];
+                $urlFilters .= '[filter_groups][0][filters][0][condition_type]=' . $filter['condition_type'];
             }
+        } else {
+            $urlFilters .= '[]';
         }
 
         return $urlFilters;
