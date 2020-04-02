@@ -60,7 +60,7 @@ class Builder
                 $urlFilters .= '[filter_groups][0][filters][0][condition_type]=' . $filter['condition_type'];
             }
         } else {
-            $urlFilters .= '[]';
+            $urlFilters .= '=[]';
         }
 
         return $urlFilters;
