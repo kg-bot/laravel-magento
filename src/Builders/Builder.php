@@ -8,6 +8,9 @@
 
 namespace KgBot\Magento\Builders;
 
+use Illuminate\Support\Collection;
+use KgBot\Magento\Exceptions\MagentoClientException;
+use KgBot\Magento\Exceptions\MagentoRequestException;
 use KgBot\Magento\Utils\Model;
 use KgBot\Magento\Utils\Request;
 
@@ -19,7 +22,7 @@ class Builder
     protected $model;
     protected $request;
 
-    public function __construct( Request $request )
+    public function __construct(Request $request )
     {
         $this->request = $request;
     }
@@ -27,7 +30,9 @@ class Builder
     /**
      * @param array $filters
      *
-     * @return \Illuminate\Support\Collection|Model[]
+     * @return Collection|Model[]
+     * @throws MagentoClientException
+     * @throws MagentoRequestException
      */
     public function get( $filters = [] )
     {
@@ -37,28 +42,23 @@ class Builder
 
             $response     = $this->request->client->get( "{$this->entity}{$urlFilters}" );
             $responseData = json_decode( (string) $response->getBody() );
-            $items        = $this->parseResponse( $responseData );
 
-            return $items;
+            return $this->parseResponse($responseData);
         } );
     }
 
     protected function parseFilters( $filters )
     {
-        $urlFilters = '?searchCriteria';
+        $urlFilters = '';
         if ( count( $filters ) > 0 ) {
-
-            $i = 0;
-
-            foreach ( $filters as $filter ) {
+            $urlFilters = '?searchCriteria';
+            foreach ($filters as $filter ) {
 
                 $urlFilters .= '[filter_groups][0][filters][0][field]=' . $filter[ 'field' ];
                 $urlFilters .= '&searchCriteria';
                 $urlFilters .= '[filter_groups][0][filters][0][value]=' . $filter[ 'value' ];
                 $urlFilters .= '&searchCriteria';
                 $urlFilters .= '[filter_groups][0][filters][0][condition_type]=' . $filter[ 'condition_type' ];
-
-                $i++;
             }
         }
 
@@ -70,7 +70,7 @@ class Builder
         $fetchedItems = collect( $response->items );
         $items        = collect( [] );
 
-        foreach ( $fetchedItems as $index => $item ) {
+        foreach ($fetchedItems as $index => $item ) {
 
 
             /** @var Model $model */
@@ -122,71 +122,5 @@ class Builder
         $this->entity = $new_entity;
 
         return $this->entity;
-    }
-
-    private function escapeFilter( $variable )
-    {
-        $escapedStrings    = [
-            "$",
-            '(',
-            ')',
-            '*',
-            '[',
-            ']',
-            ',',
-        ];
-        $urlencodedStrings = [
-            '+',
-            ' ',
-        ];
-        foreach ( $escapedStrings as $escapedString ) {
-
-            $variable = str_replace( $escapedString, '$' . $escapedString, $variable );
-        }
-        foreach ( $urlencodedStrings as $urlencodedString ) {
-
-            $variable = str_replace( $urlencodedString, urlencode( $urlencodedString ), $variable );
-        }
-
-        return $variable;
-    }
-
-    private function switchComparison( $comparison )
-    {
-        switch ( $comparison ) {
-            case '=':
-            case '==':
-                $newComparison = '$eq:';
-                break;
-            case '!=':
-                $newComparison = '$ne:';
-                break;
-            case '>':
-                $newComparison = '$gt:';
-                break;
-            case '>=':
-                $newComparison = '$gte:';
-                break;
-            case '<':
-                $newComparison = '$lt:';
-                break;
-            case '<=':
-                $newComparison = '$lte:';
-                break;
-            case 'like':
-                $newComparison = '$like:';
-                break;
-            case 'in':
-                $newComparison = '$in:';
-                break;
-            case '!in':
-                $newComparison = '$nin:';
-                break;
-            default:
-                $newComparison = "${$comparison}:";
-                break;
-        }
-
-        return $newComparison;
     }
 }
