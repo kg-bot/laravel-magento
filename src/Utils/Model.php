@@ -9,96 +9,92 @@
 namespace KgBot\Magento\Utils;
 
 
+use Illuminate\Support\Str;
+use ReflectionObject;
+use ReflectionProperty;
+
 class Model
 {
-    protected $entity;
-    protected $primaryKey;
-    protected $modelClass = self::class;
-    protected $fillable   = [];
+	protected $entity;
+	protected $primaryKey;
+	protected $modelClass = self::class;
+	protected $fillable   = [];
 
-    /**
-     * @var Request
-     */
-    protected $request;
+	/**
+	 * @var Request
+	 */
+	protected $request;
 
-    public function __construct( Request $request, $data = [] )
-    {
-        $this->request = $request;
-        $data          = (array) $data;
+	public function __construct( Request $request, $data = [] ) {
+		$this->request = $request;
+		$data          = (array) $data;
 
-        foreach ( $data as $key => $value ) {
+		foreach ( $data as $key => $value ) {
 
-            $customSetterMethod = 'set' . ucfirst( camel_case( $key ) ) . 'Attribute';
+			$customSetterMethod = 'set' . ucfirst( Str::camel( $key ) ) . 'Attribute';
 
-            if ( !method_exists( $this, $customSetterMethod ) ) {
+			if ( !method_exists( $this, $customSetterMethod ) ) {
 
-                $this->setAttribute( $key, $value );
+				$this->setAttribute( $key, $value );
 
-            } else {
+			} else {
 
-                $this->setAttribute( $key, $this->{$customSetterMethod}( $value ) );
-            }
-        }
-    }
+				$this->setAttribute( $key, $this->{$customSetterMethod}( $value ) );
+			}
+		}
+	}
 
-    protected function setAttribute( $attribute, $value )
-    {
-        $this->{$attribute} = $value;
-    }
+	protected function setAttribute( $attribute, $value ) {
+		$this->{$attribute} = $value;
+	}
 
-    public function __toString()
-    {
-        return json_encode( $this->toArray() );
-    }
+	public function __toString() {
+		return json_encode( $this->toArray() );
+	}
 
-    public function toArray()
-    {
-        $data       = [];
-        $class      = new \ReflectionObject( $this );
-        $properties = $class->getProperties( \ReflectionProperty::IS_PUBLIC );
+	public function toArray() {
+		$data       = [];
+		$class      = new ReflectionObject( $this );
+		$properties = $class->getProperties( ReflectionProperty::IS_PUBLIC );
 
-        /** @var \ReflectionProperty $property */
-        foreach ( $properties as $property ) {
+		/** @var ReflectionProperty $property */
+		foreach ( $properties as $property ) {
 
-            $data[ $property->getName() ] = $this->{$property->getName()};
-        }
+			$data[ $property->getName() ] = $this->{$property->getName()};
+		}
 
-        return $data;
-    }
+		return $data;
+	}
 
-    public function delete()
-    {
-        return $this->request->handleWithExceptions( function () {
+	public function delete() {
+		return $this->request->handleWithExceptions( function () {
 
-            return $this->request->client->delete( "{$this->entity}/" . urlencode( $this->{$this->primaryKey} ) );
-        } );
-    }
+			return $this->request->client->delete( "{$this->entity}/" . urlencode( $this->{$this->primaryKey} ) );
+		} );
+	}
 
-    public function update( $data = [] )
-    {
-        $data = [
-            str_singular( $this->entity ) => $data,
-        ];
+	public function update( $data = [] ) {
+		$data = [
+			Str::singular( $this->entity ) => $data,
+		];
 
-        return $this->request->handleWithExceptions( function () use ( $data ) {
+		return $this->request->handleWithExceptions( function () use ( $data ) {
 
-            $response = $this->request->client->put( "{$this->entity}/" . urlencode( $this->{$this->primaryKey} ), [
-                'json' => $data,
-            ] );
+			$response = $this->request->client->put( "{$this->entity}/" . urlencode( $this->{$this->primaryKey} ), [
+				'json' => $data,
+			] );
 
-            $responseData = json_decode( (string) $response->getBody() );
+			$responseData = json_decode( (string) $response->getBody() );
 
-            return new $this->modelClass( $this->request, $responseData );
-        } );
-    }
+			return new $this->modelClass( $this->request, $responseData );
+		} );
+	}
 
-    public function getEntity()
-    {
-        return $this->entity;
-    }
+	public function getEntity() {
+		return $this->entity;
+	}
 
-    public function setEntity( $new_entity )
-    {
-        $this->entity = $new_entity;
-    }
+	public function setEntity( $new_entity ) {
+		$this->entity = $new_entity;
+	}
 }

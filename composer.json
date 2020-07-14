@@ -10,10 +10,10 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
-    "laravel/framework": "^5.5",
-    "ext-json": "*",
-    "guzzlehttp/guzzle": "*"
+	  "php": ">=7.1",
+	  "laravel/framework": "^5.5|^6|^7",
+	  "ext-json": "*",
+	  "guzzlehttp/guzzle": "*"
   },
   "autoload": {
     "psr-4": {

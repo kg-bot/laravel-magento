@@ -9,6 +9,7 @@
 namespace KgBot\Magento\Builders;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use KgBot\Magento\Exceptions\MagentoClientException;
 use KgBot\Magento\Exceptions\MagentoRequestException;
 use KgBot\Magento\Utils\Model;
@@ -98,7 +99,7 @@ class Builder
     public function create( $data )
     {
         $data = [
-            str_singular( $this->entity ) => $data,
+	        Str::singular( $this->entity ) => $data,
         ];
 
         return $this->request->handleWithExceptions( function () use ( $data ) {
